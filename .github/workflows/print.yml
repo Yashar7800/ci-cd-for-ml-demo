@@ -1,0 +1,24 @@
+# This is a basic workflow to help you get started with Actions
+
+name: PR2
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  builds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Run Python script
+        run: |
+          echo print.py
+          python print.py
+          
