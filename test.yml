@@ -1,0 +1,42 @@
+name: Run Date Script
+
+on:
+  # Trigger the workflow on pushes to the 'pr-workflow2' branch
+  push:
+    branches:
+      - pr-workflow2
+
+  # Trigger the workflow on pull requests targeting the 'main' branch
+  # This means if your 'pr-workflow2' branch is part of a PR into 'main',
+  # this workflow will also run.
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  execute-script:
+    # Define the runner environment for this job
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      # This action downloads your repository's code onto the runner.
+      # It's essential so that your 'date.py' file is available.
+      - name: Checkout repository code
+        uses: actions/checkout@v4 # Using v4 of the checkout action
+
+      # Step 2: Set up Python environment
+      # This action sets up a specific Python version on the runner.
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v5 # Using v5 of the setup-python action
+        with:
+          python-version: '3.9' # Specify the desired Python version
+
+      # Step 3: Run your Python script
+      # This step executes the 'date.py' script using the Python interpreter.
+      # It assumes 'date.py' is located in the root directory of your repository.
+      - name: Execute date.py script
+        run: |
+          echo "Starting execution of date.py..."
+          python date.py
+          echo "Finished execution of date.py."
